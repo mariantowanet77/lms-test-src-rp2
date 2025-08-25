@@ -2,6 +2,10 @@ package jp.co.sss.lms.ct.f01_login1;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +14,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
@@ -37,16 +43,25 @@ public class Case02 {
 	@Test
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
-	void test01() {
+	void test01() throws Exception {
 		// TODO ここに追加
 
 		driver.get("http://localhost:8080/lms/");
+
+		// --- スクショ処理 ---
+		Thread.sleep(2000);
+		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+		// 保存先パス
+		Path targetPath = new File("evidence/case02/test01.png").toPath();
+		Files.createDirectories(targetPath.getParent()); // フォルダ作成
+		Files.copy(screenshot.toPath(), targetPath);
 	}
 
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 DBに登録されていないユーザーでログイン")
-	void test02() {
+	void test02() throws Exception {
 		// TODO ここに追加
 		// ログインID入力
 		driver.get("http://localhost:8080/lms/");
@@ -59,12 +74,21 @@ public class Case02 {
 		// ログインボタンをクリック
 		driver.findElement(By.cssSelector("input[type='submit']")).click();
 
+		// --- スクショ処理 ---
+		Thread.sleep(2000); // ページロード待ち(任意)
+		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+		// 保存先パス
+		Path targetPath = new File("evidence/case02/test02.png").toPath();
+		Files.createDirectories(targetPath.getParent()); // フォルダ作成
+		Files.copy(screenshot.toPath(), targetPath);
+
 	}
 
 	@Test
 	@Order(3)
 	@DisplayName("テスト02 全部空白でログインボタンを押す")
-	void test03() {
+	void test03() throws Exception {
 		// TODO ここに追加
 		// ログインID入力
 		driver.get("http://localhost:8080/lms/");
@@ -77,12 +101,20 @@ public class Case02 {
 		// ログインボタンをクリック
 		driver.findElement(By.cssSelector("input[type='submit']")).click();
 
+		// --- スクショ処理 ---
+		Thread.sleep(2000); // ページロード待ち(任意)
+		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+		// 保存先パス
+		Path targetPath = new File("evidence/case02/test03.png").toPath();
+		Files.createDirectories(targetPath.getParent()); // フォルダ作成
+		Files.copy(screenshot.toPath(), targetPath);
 	}
 
 	@Test
 	@Order(4)
 	@DisplayName("テスト02 登録されてないユーザーID、登録されたパスワードでログイン")
-	void test04() {
+	void test04() throws Exception {
 		// TODO ここに追加
 		// ログインID入力
 		driver.get("http://localhost:8080/lms/");
@@ -95,6 +127,13 @@ public class Case02 {
 		// ログインボタンをクリック
 		driver.findElement(By.cssSelector("input[type='submit']")).click();
 
+		//スクショを保存
+		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+		// 保存先パス
+		Path targetPath = new File("evidence/case02/test04.png").toPath();
+		Files.createDirectories(targetPath.getParent()); // フォルダ作成
+		Files.copy(screenshot.toPath(), targetPath);
 	}
 
 }

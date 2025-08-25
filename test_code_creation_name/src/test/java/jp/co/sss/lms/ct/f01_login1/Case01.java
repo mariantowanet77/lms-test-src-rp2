@@ -2,6 +2,10 @@ package jp.co.sss.lms.ct.f01_login1;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +13,8 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
@@ -37,10 +43,18 @@ public class Case01 {
 	@Test
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
-	void test01() {
+	void test01() throws Exception {
+
 		ChromeDriver driver = new ChromeDriver();
 		driver.get("http://localhost:8080/lms/");
 
-	}
+		// --- スクショ処理 ---
+		Thread.sleep(2000); // ページロード待ち(任意)
+		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
+		// 保存先パス
+		Path targetPath = new File("evidence/case01/test01.png").toPath();
+		Files.createDirectories(targetPath.getParent()); // フォルダ作成
+		Files.copy(screenshot.toPath(), targetPath);
+	}
 }
