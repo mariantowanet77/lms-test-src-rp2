@@ -26,6 +26,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class Case05 {
 
 	ChromeDriver driver = new ChromeDriver();
+	String originalHandle = driver.getWindowHandle();
 
 	/** 前処理 */
 	@BeforeAll
