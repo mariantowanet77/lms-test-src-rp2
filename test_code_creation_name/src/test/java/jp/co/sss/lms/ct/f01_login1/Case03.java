@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f01_login1;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -46,6 +47,7 @@ public class Case03 {
 	void test01() throws Exception {
 		// TODO ここに追加
 		driver.get("http://localhost:8080/lms/");
+		assertEquals("ログイン | LMS", driver.getTitle());
 
 		// --- スクショ処理 ---
 		Thread.sleep(2000); // ページロード待ち(任意)
@@ -63,6 +65,7 @@ public class Case03 {
 	void test02() throws Exception {
 		// TODO ここに追加
 		driver.get("http://localhost:8080/lms/");
+		assertEquals("ログイン | LMS", driver.getTitle());
 
 		driver.findElement(By.id("loginId")).sendKeys("StudentAA01");
 
@@ -73,6 +76,7 @@ public class Case03 {
 		driver.findElement(By.cssSelector("input[type='submit']")).click();
 		// --- スクショ処理 ---
 		Thread.sleep(2000); // ページロード待ち(任意)
+		assertEquals("コース詳細 | LMS", driver.getTitle());
 		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
 		// 保存先パス

@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f01_login1;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -47,6 +48,7 @@ public class Case02 {
 		// TODO ここに追加
 
 		driver.get("http://localhost:8080/lms/");
+		assertEquals("ログイン | LMS", driver.getTitle());
 
 		// --- スクショ処理 ---
 		Thread.sleep(2000);
@@ -65,6 +67,7 @@ public class Case02 {
 		// TODO ここに追加
 		// ログインID入力
 		driver.get("http://localhost:8080/lms/");
+		assertEquals("ログイン | LMS", driver.getTitle());
 
 		driver.findElement(By.id("loginId")).sendKeys("korehatestdesu11");
 
@@ -92,6 +95,7 @@ public class Case02 {
 		// TODO ここに追加
 		// ログインID入力
 		driver.get("http://localhost:8080/lms/");
+		assertEquals("ログイン | LMS", driver.getTitle());
 
 		driver.findElement(By.id("loginId")).sendKeys("");
 
@@ -118,6 +122,7 @@ public class Case02 {
 		// TODO ここに追加
 		// ログインID入力
 		driver.get("http://localhost:8080/lms/");
+		assertEquals("ログイン | LMS", driver.getTitle());
 
 		driver.findElement(By.id("loginId")).sendKeys("StudentAA01");
 

@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f01_login1;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -45,9 +46,8 @@ public class Case01 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() throws Exception {
 
-		ChromeDriver driver = new ChromeDriver();
 		driver.get("http://localhost:8080/lms/");
-
+		assertEquals("ログイン | LMS", driver.getTitle());
 		// --- スクショ処理 ---
 		Thread.sleep(2000); // ページロード待ち(任意)
 		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);

@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f02_faq;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -53,6 +54,7 @@ public class Case04 {
 		driver.get("http://localhost:8080/lms/");
 		// --- スクショ処理 ---
 		Thread.sleep(2000); // ページロード待ち(任意)
+		assertEquals("ログイン | LMS", driver.getTitle());
 		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
 		// 保存先パス
@@ -77,6 +79,7 @@ public class Case04 {
 
 		// --- スクショ処理 ---
 		Thread.sleep(2000); // ページロード待ち(任意)
+		assertEquals("コース詳細 | LMS", driver.getTitle());
 		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
 		// 保存先パス
@@ -91,7 +94,6 @@ public class Case04 {
 	void test03() throws Exception {
 		// TODO ここに追加
 		driver.get("http://localhost:8080/lms/");
-
 		driver.findElement(By.id("loginId")).sendKeys("StudentAA01");
 
 		// パスワード入力
@@ -105,6 +107,7 @@ public class Case04 {
 
 		// --- スクショ処理 ---
 		Thread.sleep(2000); // ページロード待ち(任意)
+		assertEquals("ヘルプ | LMS", driver.getTitle());
 		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
 		// 保存先パス
@@ -142,6 +145,7 @@ public class Case04 {
 		}
 		// --- スクショ処理 ---
 		Thread.sleep(2000); // ページロード待ち(任意)
+		assertEquals("よくある質問 | LMS", driver.getTitle());
 		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
 		// 保存先パス
