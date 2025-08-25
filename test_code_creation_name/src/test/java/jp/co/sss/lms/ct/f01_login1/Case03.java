@@ -49,10 +49,10 @@ public class Case03 {
 		// TODO ここに追加
 		driver.get("http://localhost:8080/lms/");
 
-		driver.findElement(By.id("loginId")).sendKeys("StudentAA04");
+		driver.findElement(By.id("loginId")).sendKeys("StudentAA01");
 
 		// パスワード入力
-		driver.findElement(By.id("password")).sendKeys("StudentAA04");
+		driver.findElement(By.id("password")).sendKeys("StudentAA01a");
 
 		// ログインボタンをクリック
 		driver.findElement(By.cssSelector("input[type='submit']")).click();

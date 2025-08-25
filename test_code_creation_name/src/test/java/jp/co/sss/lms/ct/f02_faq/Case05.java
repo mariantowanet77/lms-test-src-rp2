@@ -2,6 +2,8 @@ package jp.co.sss.lms.ct.f02_faq;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -97,7 +99,30 @@ public class Case05 {
 	@DisplayName("テスト05 キーワード検索で該当キーワードを含む検索結果だけ表示")
 	void test05() {
 		// TODO ここに追加
-		driver.get("http://localhost:8080/lms/faq");
+		String originalHandle = driver.getWindowHandle();
+
+		driver.get("http://localhost:8080/lms/");
+
+		driver.findElement(By.id("loginId")).sendKeys("StudentAA01");
+
+		// パスワード入力
+		driver.findElement(By.id("password")).sendKeys("StudentAA01a");
+
+		// ログインボタンをクリック
+		driver.findElement(By.cssSelector("input[type='submit']")).click();
+
+		driver.findElement(By.linkText("機能")).click();
+		driver.findElement(By.linkText("ヘルプ")).click();
+		WebElement faqLink = driver.findElement(By.linkText("よくある質問"));
+		faqLink.sendKeys(Keys.chord(Keys.CONTROL, Keys.RETURN));
+
+		Set<String> handles = driver.getWindowHandles();
+		for (String handle : handles) {
+			if (!handle.equals(originalHandle)) {
+				driver.switchTo().window(handle); // 新しいタブに切り替え
+				break;
+			}
+		}
 
 		WebElement keywordInput = driver.findElement(By.id("form"));
 		keywordInput.sendKeys("あ");

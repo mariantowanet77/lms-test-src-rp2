@@ -38,7 +38,6 @@ public class Case01 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		// WebDriverUtils の static getter 経由でアクセス
 		ChromeDriver driver = new ChromeDriver();
 		driver.get("http://localhost:8080/lms/");
 

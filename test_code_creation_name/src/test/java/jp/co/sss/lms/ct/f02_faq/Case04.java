@@ -94,6 +94,7 @@ public class Case04 {
 
 		// ログインボタンをクリック
 		driver.findElement(By.cssSelector("input[type='submit']")).click();
+
 		driver.findElement(By.linkText("機能")).click();
 		driver.findElement(By.linkText("ヘルプ")).click();
 		WebElement faqLink = driver.findElement(By.linkText("よくある質問"));

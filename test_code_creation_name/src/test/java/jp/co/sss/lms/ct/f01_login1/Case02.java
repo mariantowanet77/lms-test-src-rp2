@@ -61,4 +61,40 @@ public class Case02 {
 
 	}
 
+	@Test
+	@Order(3)
+	@DisplayName("テスト02 全部空白でログインボタンを押す")
+	void test03() {
+		// TODO ここに追加
+		// ログインID入力
+		driver.get("http://localhost:8080/lms/");
+
+		driver.findElement(By.id("loginId")).sendKeys("");
+
+		// パスワード入力
+		driver.findElement(By.id("password")).sendKeys("");
+
+		// ログインボタンをクリック
+		driver.findElement(By.cssSelector("input[type='submit']")).click();
+
+	}
+
+	@Test
+	@Order(4)
+	@DisplayName("テスト02 登録されてないユーザーID、登録されたパスワードでログイン")
+	void test04() {
+		// TODO ここに追加
+		// ログインID入力
+		driver.get("http://localhost:8080/lms/");
+
+		driver.findElement(By.id("loginId")).sendKeys("StudentAA01");
+
+		// パスワード入力
+		driver.findElement(By.id("password")).sendKeys("Student000000");
+
+		// ログインボタンをクリック
+		driver.findElement(By.cssSelector("input[type='submit']")).click();
+
+	}
+
 }
