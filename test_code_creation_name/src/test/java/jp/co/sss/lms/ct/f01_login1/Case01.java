@@ -49,7 +49,7 @@ public class Case01 {
 		driver.get("http://localhost:8080/lms/");
 		assertEquals("ログイン | LMS", driver.getTitle());
 		// --- スクショ処理 ---
-		Thread.sleep(2000); // ページロード待ち(任意)
+		Thread.sleep(2000);
 		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
 		// 保存先パス
