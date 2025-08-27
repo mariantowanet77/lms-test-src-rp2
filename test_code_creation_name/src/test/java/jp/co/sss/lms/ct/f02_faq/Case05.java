@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f02_faq;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -35,9 +36,17 @@ public class Case05 {
 	ChromeDriver driver = new ChromeDriver();
 	String originalHandle = driver.getWindowHandle();
 
-	/** 前処理 */
+	/** 前処理 
+	 * @throws Exception */
 	@BeforeAll
-	static void before() {
+	static void before() throws Exception {
+		Path evidenceDir = Path.of("evidence/case05");
+		if (Files.exists(evidenceDir)) {
+			Files.walk(evidenceDir)
+					.map(Path::toFile)
+					.sorted((a, b) -> -a.compareTo(b)) // 子 → 親の順で削除
+					.forEach(File::delete);
+		}
 		createDriver();
 	}
 
@@ -71,28 +80,37 @@ public class Case05 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 		driver.get("http://localhost:8080/lms/");
+		assertEquals("ログイン | LMS", driver.getTitle());
 	}
 
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
-	void test02() {
+	void test02() throws Exception {
+		//ログイン
 		driver.get("http://localhost:8080/lms/");
 		driver.findElement(By.id("loginId")).sendKeys("StudentAA01");
 		driver.findElement(By.id("password")).sendKeys("StudentAA01a");
 		driver.findElement(By.cssSelector("input[type='submit']")).click();
+		Thread.sleep(500);
+		assertEquals("コース詳細 | LMS", driver.getTitle());
 	}
 
 	@Test
 	@Order(3)
 	@DisplayName("テスト03 上部メニューの「ヘルプ」リンクからヘルプ画面に遷移")
-	void test03() {
+	void test03() throws Exception {
+		//ログイン
 		driver.get("http://localhost:8080/lms/");
 		driver.findElement(By.id("loginId")).sendKeys("StudentAA01");
 		driver.findElement(By.id("password")).sendKeys("StudentAA01a");
+
+		//機能→ヘルプをクリック
 		driver.findElement(By.cssSelector("input[type='submit']")).click();
+		Thread.sleep(500);
 		driver.findElement(By.linkText("機能")).click();
 		driver.findElement(By.linkText("ヘルプ")).click();
+		assertEquals("ヘルプ | LMS", driver.getTitle());
 	}
 
 	@Test
@@ -115,18 +133,19 @@ public class Case05 {
 				break;
 			}
 		}
+		assertEquals("よくある質問 | LMS", driver.getTitle());
 	}
 
 	@Test
 	@Order(5)
 	@DisplayName("テスト05 キーワード検索で該当キーワードを含む検索結果だけ表示")
-	void test05() {
+	void test05() throws Exception {
 		String originalHandle = driver.getWindowHandle();
 		driver.get("http://localhost:8080/lms/");
 		driver.findElement(By.id("loginId")).sendKeys("StudentAA01");
 		driver.findElement(By.id("password")).sendKeys("StudentAA01a");
 		driver.findElement(By.cssSelector("input[type='submit']")).click();
-
+		Thread.sleep(500);
 		driver.findElement(By.linkText("機能")).click();
 		driver.findElement(By.linkText("ヘルプ")).click();
 		WebElement faqLink = driver.findElement(By.linkText("よくある質問"));
@@ -139,18 +158,21 @@ public class Case05 {
 				break;
 			}
 		}
+		assertEquals("よくある質問 | LMS", driver.getTitle());
 		WebElement keywordInput = driver.findElement(By.id("form"));
-		keywordInput.sendKeys("あ");
+		keywordInput.sendKeys("助成金");
 		driver.findElement(By.cssSelector("input[type='submit'][value='検索']")).click();
 	}
 
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 「クリア」ボタン押下で入力したキーワードを消去")
-	void test06() {
+	void test06() throws Exception {
 		driver.get("http://localhost:8080/lms/faq");
+		assertEquals("よくある質問 | LMS", driver.getTitle());
 		WebElement keywordInput = driver.findElement(By.id("form"));
-		keywordInput.sendKeys("テスト");
+		keywordInput.sendKeys("テストだぞおおおおおおおおお");
+		Thread.sleep(500);
 		driver.findElement(By.cssSelector("input[type='button'][value='クリア']")).click();
 	}
 }
