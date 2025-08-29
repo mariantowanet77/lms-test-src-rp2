@@ -20,8 +20,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -66,11 +64,7 @@ public class Case05 {
 		js.executeScript("document.body.style.zoom='80%'");
 		//スクショを取る処理
 		Thread.sleep(2000);
-		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		String fileName = "evidence/case05/" + testInfo.getTestMethod().get().getName() + ".png";
-		Path targetPath = new File(fileName).toPath();
-		Files.createDirectories(targetPath.getParent());
-		Files.copy(screenshot.toPath(), targetPath);
+
 		//画面倍率を元に戻す。
 		js.executeScript("document.body.style.zoom='100%'");
 	}
