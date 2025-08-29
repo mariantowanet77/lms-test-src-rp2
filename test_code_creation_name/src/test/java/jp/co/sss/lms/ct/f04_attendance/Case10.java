@@ -63,7 +63,7 @@ public class Case10 {
 	/** 前処理 */
 	@BeforeAll
 	static void before() throws Exception {
-		Path evidenceDir = Path.of("evidence/case08");
+		Path evidenceDir = Path.of("evidence/case10");
 		if (Files.exists(evidenceDir)) {
 			Files.walk(evidenceDir)
 					.map(Path::toFile)
@@ -195,10 +195,6 @@ public class Case10 {
 				By.cssSelector("input[type='submit'][value='退勤']"));
 
 		Thread.sleep(500);
-		// 通常クリック
-		// punchInBtn.click();
-
-		// 万一クリックできない場合は JS クリックに切り替え
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", punchInBtn);
 
 		try {
